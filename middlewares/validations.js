@@ -25,7 +25,7 @@ const isValidPassword = (req, res, next) => {
       message: 'O campo "password" é obrigatório' });
   }
 
-  if (password.length >= 6) {
+  if (!password.length >= 6) {
     return res.status(HTTP_ERROR_STATUS).json({ 
       message: 'O "password" deve ter pelo menos 6 caracteres' });
   }
