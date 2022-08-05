@@ -1,5 +1,5 @@
 const HTTP_ERROR_STATUS = 400;
-const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i; // from: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/; // from: https://www.simplilearn.com/tutorials/javascript-tutorial/email-validation-in-javascript
 
 const isValidEmail = (req, res, next) => {
   const { email } = req.body;
@@ -25,7 +25,9 @@ const isValidPassword = (req, res, next) => {
       message: 'O campo "password" é obrigatório' });
   }
 
-  if (!password.length >= 6) {
+  console.log(password.length);
+
+  if (password.length < 6) {
     return res.status(HTTP_ERROR_STATUS).json({ 
       message: 'O "password" deve ter pelo menos 6 caracteres' });
   }

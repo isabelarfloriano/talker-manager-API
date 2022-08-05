@@ -56,7 +56,7 @@ app.post(
   isValidEmail,
   isValidPassword,
   (req, res) => {
-    const getToken = generateToken();
-    return res.status(HTTP_OK_STATUS).send({ token: getToken }); 
+    const token = generateToken();
+    return res.status(HTTP_OK_STATUS).send({ token }); 
   },    
 );
