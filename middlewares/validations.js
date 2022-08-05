@@ -1,4 +1,5 @@
 const HTTP_ERROR_STATUS = 400;
+const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i; // from: https://pt.stackoverflow.com/questions/1386/express%C3%A3o-regular-para-valida%C3%A7%C3%A3o-de-e-mail
 
 const isValidEmail = (req, res, next) => {
   const { email } = req.body;
@@ -8,7 +9,7 @@ const isValidEmail = (req, res, next) => {
       message: 'O campo "email" é obrigatório' });
   }
 
-  if (!email.includes('@') || !email.includes('.com')) {
+  if (!emailRegex.test(email)) {
     return res.status(HTTP_ERROR_STATUS).send({ 
       message: 'O "email" deve ter o formato "email@email.com"' });
   }
