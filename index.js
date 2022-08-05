@@ -69,7 +69,6 @@ app.post(
   '/login',
   isValidEmail,
   isValidPassword,
-  isTalkValid,
   (req, res) => {
     const token = generateToken();
     return res.status(HTTP_OK_STATUS).send({ token }); 
@@ -81,6 +80,7 @@ app.post(
   isValidToken,
   isNameValid,
   isAgeValid,
+  isTalkValid,
   isWatchedAtValid,
   isRateValid,
   async (req, res) => {
@@ -91,6 +91,6 @@ app.post(
     const newData = currentData.push(newTalker);
 
     await writeTalkerData(newData);
-    res.status(201).json(newTalker);
+    return res.status(201).json(newTalker);
   },
 );
