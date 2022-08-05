@@ -30,7 +30,7 @@ async function readTalkerData() {
 app.get('/talker', async (req, res) => {
   const talkers = await readTalkerData();
 
-  if (!talkers.length) {return res.status(HTTP_OK_STATUS).json([])};
+  if (!talkers.length) return res.status(HTTP_OK_STATUS).json([]);
 
   return res.status(HTTP_OK_STATUS).json(talkers);
 });
