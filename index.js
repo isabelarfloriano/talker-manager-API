@@ -41,7 +41,7 @@ app.get('/talker/:id', async (req, res) => {
 
   const talker = talkers.find((talk) => talk.id === Number(id));
 
-  if (!talker) return res.status(404).json({ "message": 'Pessoa palestrante não encontrada' });
+  if (!talker) return res.status(404).send({ message: 'Pessoa palestrante não encontrada' });
 
   res.status(HTTP_OK_STATUS).json(talker);
-})
+});
