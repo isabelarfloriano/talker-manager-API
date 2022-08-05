@@ -65,9 +65,28 @@ const isNameValid = (req, res, next) => {
   next();
 };
 
+const isAgeValid = (req, res, next) => {
+  const { age } = req.body;
+
+  if (!age) {
+    return res.status(HTTP_ERROR_STATUS).json({
+      message: 'O campo "age" é obrigatório',
+    }); 
+  }
+
+  if (age.length < 18) {
+    return res.status(HTTP_ERROR_STATUS).json({
+      message: 'A pessoa palestrante deve ser maior de idade',
+    }); 
+  }
+
+  next();
+};
+
 module.exports = {
   isValidEmail,
   isValidPassword,
   isValidToken,
   isNameValid,
+  isAgeValid,
 };
