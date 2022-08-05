@@ -100,7 +100,7 @@ const isWatchedAtValid = (req, res, next) => {
 
   if (!watchedAt) {
     return res.status(HTTP_ERROR_STATUS).json({
-      message: 'O campo "talk" é obrigatório',
+      message: 'O campo "watchedAt" é obrigatório',
     }); 
   }
 
@@ -119,7 +119,7 @@ const isRateValid = (req, res, next) => {
 
   if (!rate) {
     return res.status(HTTP_ERROR_STATUS).json({
-      message: 'O campo "talk" é obrigatório',
+      message: 'O campo "rate" é obrigatório',
     }); 
   }
 
