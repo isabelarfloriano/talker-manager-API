@@ -38,9 +38,9 @@ async function readTalkerData() {
   }
 }
 
-async function writeTalkerData(data) {
+async function writeTalkerData(newData) {
   try {
-    await fs.writeFile('./talker.json', JSON.stringify(data));
+    await fs.writeFile('./talker.json', JSON.stringify(newData));
   } catch (err) {
     console.log(err);
   }
@@ -83,5 +83,14 @@ app.post(
   isAgeValid,
   isWatchedAtValid,
   isRateValid,
-  async (req, res) => res.status(201),
+  async (req, res) => {
+    const talkerInfos = req.body;
+    const currentData = await readTalkerData();
+    const id = currentData.length + 1;
+    const newTalker = { ...talkerInfos, id };
+    const newData = currentData.push(newTalker);
+
+    await writeTalkerData(newData);
+    res.status(201).json(newTalker);
+  },
 );
