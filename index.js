@@ -5,6 +5,12 @@ const generateToken = require('./token');
 const {   
   isValidEmail,
   isValidPassword,
+  isValidToken,
+  isNameValid,
+  isAgeValid,
+  isTalkValid,
+  isWatchedAtValid,
+  isRateValid,
 } = require('./middlewares/validations');
 
 const app = express();
@@ -27,6 +33,14 @@ async function readTalkerData() {
   try {
     const data = await fs.readFile('./talker.json', 'utf-8');
     return JSON.parse(data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function writeTalkerData(data) {
+  try {
+    await fs.writeFile('./talker.json', JSON.stringify(data));
   } catch (err) {
     console.log(err);
   }
@@ -55,8 +69,19 @@ app.post(
   '/login',
   isValidEmail,
   isValidPassword,
+  isTalkValid,
   (req, res) => {
     const token = generateToken();
     return res.status(HTTP_OK_STATUS).send({ token }); 
   },    
+);
+
+app.post(
+  '/talker',
+  isValidToken,
+  isNameValid,
+  isAgeValid,
+  isWatchedAtValid,
+  isRateValid,
+  async (req, res) => res.status(201),
 );
