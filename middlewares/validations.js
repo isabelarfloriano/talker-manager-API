@@ -83,10 +83,24 @@ const isAgeValid = (req, res, next) => {
   next();
 };
 
+const isTalkValid = (req, res, next) => {
+  const { talk } = req.body;
+  const { watchedAt, rate } = talk;
+
+  if (!talk || !watchedAt || !rate) {
+    return res.status(HTTP_ERROR_STATUS).json({
+      message: 'O campo "talk" é obrigatório',
+    }); 
+  }
+
+  next();
+};
+
 module.exports = {
   isValidEmail,
   isValidPassword,
   isValidToken,
   isNameValid,
   isAgeValid,
+  isTalkValid,
 };
