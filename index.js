@@ -85,12 +85,16 @@ app.post(
   isRateValid,
   async (req, res) => {
     const talkerInfos = req.body;
-    const currentData = await readTalkerData();
-    const id = currentData.length + 1;
-    const newTalker = { ...talkerInfos, id };
-    const newData = currentData.push(newTalker);
+    const data = await readTalkerData();
+    const newTalker = { ...talkerInfos, id: data.length + 1 };
+    data.push(newTalker);
 
-    await writeTalkerData(newData);
+    // console.log(talkerInfos);
+    // console.log('velha', data);
+    // console.log('new talker', newTalker);
+    // console.log('nova', data);
+
+    await writeTalkerData(data);
     return res.status(201).json(newTalker);
   },
 );
