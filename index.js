@@ -98,3 +98,33 @@ app.post(
     return res.status(201).json(newTalker);
   },
 );
+
+app.put(
+  '/talker/:id',
+  isValidToken,
+  isNameValid,
+  isAgeValid,
+  isTalkValid,
+  isWatchedAtValid,
+  isRateValid,
+  async (req, res) => {
+    const { id } = req.params;
+    const newTalker = req.body;
+    const data = await readTalkerData();
+
+    const findTalker = data.find((talker) => talker.id === Number(id));
+    console.log('antes ', findTalker);
+    console.log('... ', data[id - 1]);
+    if (findTalker === data[id - 1]) {
+      newTalker.id = Number(id);
+      console.log('new talker', newTalker);
+      await writeTalkerData(data[id - 1] = newTalker);
+    }
+    // console.log(findTalker);
+    // console.log('velha', data);
+    console.log('nova', data);
+
+    // await writeTalkerData(data);
+    return res.status(HTTP_OK_STATUS).json(newTalker);
+  },
+);
