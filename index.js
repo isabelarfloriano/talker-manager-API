@@ -113,18 +113,13 @@ app.put(
     const data = await readTalkerData();
 
     const findTalker = data.find((talker) => talker.id === Number(id));
-    console.log('antes ', findTalker);
-    console.log('... ', data[id - 1]);
-    if (findTalker === data[id - 1]) {
-      newTalker.id = Number(id);
-      console.log('new talker', newTalker);
-      await writeTalkerData(data[id - 1] = newTalker);
-    }
-    // console.log(findTalker);
-    // console.log('velha', data);
-    console.log('nova', data);
 
-    // await writeTalkerData(data);
+    if (!findTalker) return res.status(404).send('Talker não encontrado'); 
+
+    newTalker.id = Number(id);
+    data[id - 1] = newTalker;
+    await writeTalkerData(data);
+
     return res.status(HTTP_OK_STATUS).json(newTalker);
   },
 );
