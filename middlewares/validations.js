@@ -117,7 +117,7 @@ const isRateValid = (req, res, next) => {
   const { talk } = req.body;
   const { rate } = talk;
 
-  if (!rate) {
+  if (rate === undefined) {
     return res.status(HTTP_ERROR_STATUS).json({
       message: 'O campo "rate" é obrigatório',
     }); 
