@@ -46,6 +46,22 @@ async function writeTalkerData(newData) {
   }
 }
 
+app.get(
+  '/talker/search',
+  isValidToken,
+  async (req, res) => {
+    const { q } = req.query;
+    const data = await readTalkerData();
+
+    const filterData = data
+      .filter((talker) => talker.name.includes(q));
+
+    if (!q) return res.status(HTTP_OK_STATUS).json(data); 
+
+    return res.status(HTTP_OK_STATUS).json(filterData);
+  },
+);
+
 app.get('/talker', async (req, res) => {
   const talkers = await readTalkerData();
 
