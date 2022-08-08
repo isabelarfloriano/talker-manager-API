@@ -123,3 +123,21 @@ app.put(
     return res.status(HTTP_OK_STATUS).json(newTalker);
   },
 );
+
+app.delete(
+  '/talker/:id',
+  isValidToken,
+  async (req, res) => {
+    const { id } = req.params;
+    const data = await readTalkerData();
+
+    const findTalker = data.find((talker) => talker.id === Number(id));
+
+    if (!findTalker) return res.status(404).send('Talker não encontrado'); 
+
+    const filterData = data.filter((talker) => talker.id !== Number(id));
+    await writeTalkerData(filterData);
+
+    return res.status(204).end();
+  },
+);
